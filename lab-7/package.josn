@@ -1,0 +1,14 @@
+{
+  "name": "madlib-website",
+  "version": "1.0.0",
+  "description": "A Mad Lib web application for ITC505 Lab 7",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js local"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  }
+}
