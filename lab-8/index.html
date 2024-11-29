@@ -144,78 +144,84 @@
     </div>
 
     <script>
+        // XSS Prevention Function
+        function sanitizeInput(input) {
+            // Create a temporary element to encode HTML special characters
+            const temp = document.createElement('div');
+            temp.textContent = input;
+            return temp.innerHTML;
+        }
+
+        // Enhanced validation with XSS prevention
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
             // Reset previous error states
-            const inputs = document.querySelectorAll('input');
-            inputs.forEach(input => input.classList.remove('error-input'));
             const errorElements = document.querySelectorAll('.error');
             errorElements.forEach(element => element.textContent = '');
 
-            // Get form fields
-            const firstName = document.getElementById('firstName');
-            const lastName = document.getElementById('lastName');
-            const email = document.getElementById('email');
-            const password = document.getElementById('password');
-            const confirmPassword = document.getElementById('confirmPassword');
+            // Get and sanitize form fields
+            const firstName = sanitizeInput(document.getElementById('firstName').value.trim());
+            const lastName = sanitizeInput(document.getElementById('lastName').value.trim());
+            const email = sanitizeInput(document.getElementById('email').value.trim());
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
 
             // Validation flags
             let isValid = true;
 
             // Validate First Name
-            if (firstName.value.trim() === '') {
-                firstName.classList.add('error-input');
+            if (firstName === '') {
                 document.getElementById('firstNameError').textContent = 'First name is required';
                 isValid = false;
             }
 
             // Validate Last Name
-            if (lastName.value.trim() === '') {
-                lastName.classList.add('error-input');
+            if (lastName === '') {
                 document.getElementById('lastNameError').textContent = 'Last name is required';
                 isValid = false;
             }
 
             // Validate Email
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (email.value.trim() === '') {
-                email.classList.add('error-input');
+            if (email === '') {
                 document.getElementById('emailError').textContent = 'Email is required';
                 isValid = false;
-            } else if (!emailRegex.test(email.value)) {
-                email.classList.add('error-input');
+            } else if (!emailRegex.test(email)) {
                 document.getElementById('emailError').textContent = 'Invalid email format';
                 isValid = false;
             }
 
             // Validate Password
-            if (password.value.trim() === '') {
-                password.classList.add('error-input');
+            if (password.trim() === '') {
                 document.getElementById('passwordError').textContent = 'Password is required';
                 isValid = false;
-            } else if (password.value.length < 8) {
-                password.classList.add('error-input');
+            } else if (password.length < 8) {
                 document.getElementById('passwordError').textContent = 'Password must be at least 8 characters';
                 isValid = false;
             }
 
             // Validate Confirm Password
-            if (confirmPassword.value.trim() === '') {
-                confirmPassword.classList.add('error-input');
+            if (confirmPassword.trim() === '') {
                 document.getElementById('confirmPasswordError').textContent = 'Confirm password is required';
                 isValid = false;
-            } else if (password.value !== confirmPassword.value) {
-                confirmPassword.classList.add('error-input');
+            } else if (password !== confirmPassword) {
                 document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
                 isValid = false;
             }
 
             // If all validations pass, submit the form
             if (isValid) {
+                // Prevent storing raw user input
+                const sanitizedData = {
+                    firstName: sanitizeInput(firstName),
+                    lastName: sanitizeInput(lastName),
+                    email: sanitizeInput(email)
+                };
+
+                // In a real application, you would send sanitizedData to the server
+                console.log('Sanitized Form Data:', sanitizedData);
                 alert('Form submitted successfully!');
-                // Here you would typically send the form data to a server
-                // this.submit();
             }
         });
     </script>
