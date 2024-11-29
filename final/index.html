@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lights Out Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lights Out!</h1>
+        <div id="game-board" class="game-board"></div>
+        <div class="instructions">
+            <p>Click squares to toggle lights. Turn all lights off to win!</p>
+        </div>
+        <div class="stats">
+            <p>Moves: <span id="move-count">0</span></p>
+            <button id="new-game-btn" class="new-game-btn">New Game</button>
+        </div>
+
+        <!-- Rest of the content remains the same -->
+        <div class="addendum">
+            <h2>Addendum: Development Process and Insights</h2>
+            <p>In creating this "Lights Out" game, I embarked on a journey of strategic game design and JavaScript implementation. The primary challenge was ensuring a randomly generated board that remains solvable.</p>
+            
+            <h3>Process and Creative Choices</h3>
+            <p>Instead of assigning random states to individual squares, I developed an innovative approach: starting with an all-white board and simulating random clicks. This method guarantees a solvable configuration every time the game is loaded.</p>
+            
+            <h3>Technical Approach</h3>
+            <p>I utilized a class-based JavaScript implementation, creating a modular and extensible game structure. The game logic handles board initialization, square toggling, win condition checking, and automatic reset.</p>
+            
+            <h3>Key Challenges and Solutions</h3>
+            <ul>
+                <li><strong>Solvability:</strong> Solved by simulating random clicks instead of pure random assignment.</li>
+                <li><strong>User Experience:</strong> Implemented a move counter and win alert to enhance player engagement.</li>
+            </ul>
+            
+            <h3>Design Considerations</h3>
+            <p>The game features a playful aesthetic using the Comic Neue font and a dark, game-like color scheme. The responsive design ensures playability across different devices.</p>
+            
+            <h3>Insights Gained</h3>
+            <p>This project reinforced the importance of creative problem-solving in game design, particularly in creating randomized yet solvable puzzle configurations. It also highlighted the power of object-oriented JavaScript in creating interactive web experiences.</p>
+        </div>
+
+        <footer>
+            <p>Last updated: 
+                <span id="lastModified"></span>
+            </p>
+        </footer>
+    </div>
+
+    <script src="game.js"></script>
+
+    <script type="text/javascript">
+         var x = document.lastModified;
+         document.getElementById('lastModified').textContent = x;
+    </script>
+</body>
+</html>
